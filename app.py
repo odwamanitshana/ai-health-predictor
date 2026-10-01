@@ -117,11 +117,6 @@ with col2:
         help="Age in years.",
     )
 
-st.caption(
-    "This tool is for educational purposes only and is not a substitute for "
-    "professional medical advice."
-)
-
 if st.button("Predict risk", type="primary"):
     input_values = [
         pregnancies,
@@ -145,7 +140,7 @@ if st.button("Predict risk", type="primary"):
     probability_pct = prob_diabetes * 100.0
     st.metric(
         label="Diabetes probability",
-        value=f"{probability_pct:.2f}%",
+        value=f"{probability_pct:.1f}%",
         delta=None,
     )
 

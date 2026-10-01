@@ -12,7 +12,7 @@ The free host may sleep when idle; the first visit can take about 30 seconds to 
 ## Features
 
 - Interactive web UI for clinical metrics
-- Real-time diabetes risk probability from a trained Random Forest
+- Instant diabetes-risk probability from a trained Random Forest
 - Additional models trained in the notebook (Logistic Regression, Neural Network) for offline comparison
 - Deployed demo · educational use
 - Open source with trained model artifacts included
