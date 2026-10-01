@@ -1,0 +1,18 @@
+[theme]
+base = "light"
+primaryColor = "#B5522A"
+backgroundColor = "#F6F5F1"
+secondaryBackgroundColor = "#ECEAE4"
+textColor = "#1A1814"
+font = "sans serif"
+codeFont = "monospace"
+borderColor = "#E2E0DA"
+baseRadius = "6px"
+
+[[theme.fontFaces]]
+family = "sans serif"
+url = "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap"
+
+[[theme.fontFaces]]
+family = "monospace"
+url = "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap"
