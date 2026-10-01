@@ -141,9 +141,12 @@ if st.button("Predict risk", type="primary"):
 
     st.subheader("Prediction")
 
+    st.caption("Model: Random Forest")
+    probability_pct = prob_diabetes * 100.0
     st.metric(
-        label="Estimated probability of diabetes",
-        value=f"{prob_diabetes:.2%}",
+        label="Diabetes probability",
+        value=f"{probability_pct:.2f}%",
+        delta=None,
     )
 
     if pred_class == 1:
