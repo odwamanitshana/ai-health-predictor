@@ -1,34 +1,18 @@
 import os
+
 import joblib
 import numpy as np
 import streamlit as st
 
-# --------------------------
-# Load scaler and model
-# --------------------------
 MODELS_DIR = "models"
 
 scaler_path = os.path.join(MODELS_DIR, "scaler.pkl")
 rf_path = os.path.join(MODELS_DIR, "random_forest.pkl")
 
-scaler = joblib.load(scaler_path)
+# Loaded at startup so missing/corrupt scaler.pkl fails fast (used by other saved models).
+_scaler = joblib.load(scaler_path)
 rf_model = joblib.load(rf_path)
 
-# Make sure the feature order here matches your training data (X.columns)
-FEATURE_NAMES = [
-    "Pregnancies",
-    "Glucose",
-    "BloodPressure",
-    "SkinThickness",
-    "Insulin",
-    "BMI",
-    "DiabetesPedigreeFunction",
-    "Age",
-]
-
-# --------------------------
-# Streamlit UI
-# --------------------------
 st.title("Diabetes Risk Predictor")
 
 st.write(
@@ -48,12 +32,16 @@ with col2:
     insulin = st.number_input("Insulin", min_value=0, max_value=1000, value=80, step=1)
     bmi = st.number_input("BMI", min_value=0.0, max_value=80.0, value=25.0, step=0.1, format="%.1f")
     dpf = st.number_input(
-        "Diabetes Pedigree Function", min_value=0.0, max_value=3.0, value=0.5, step=0.01, format="%.2f"
+        "Diabetes Pedigree Function",
+        min_value=0.0,
+        max_value=3.0,
+        value=0.5,
+        step=0.01,
+        format="%.2f",
     )
     age = st.number_input("Age", min_value=0, max_value=120, value=33, step=1)
 
 if st.button("Predict"):
-    # Build feature vector (raw features — no scaling for RF)
     input_values = [
         pregnancies,
         glucose,
@@ -65,13 +53,11 @@ if st.button("Predict"):
         age,
     ]
 
-    X_input = np.array(input_values).reshape(1, -1)
+    x_input = np.array(input_values).reshape(1, -1)
 
-    # For Random Forest trained on raw X: no scaling
-    prob_diabetes = rf_model.predict_proba(X_input)[0, 1]
-    pred_class = rf_model.predict(X_input)[0]
+    prob_diabetes = rf_model.predict_proba(x_input)[0, 1]
+    pred_class = rf_model.predict(x_input)[0]
 
-    # Display results
     st.subheader("Prediction")
 
     st.write(f"Estimated probability of diabetes: **{prob_diabetes:.2%}**")
